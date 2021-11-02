@@ -1,0 +1,28 @@
+{% extends "base.html.twig" %}
+
+{% block stylesheets %}
+	{{ parent() }}
+	<link href="{{ asset('css/author.css') }}" rel="stylesheet" />
+{% endblock %}
+
+{% block body %}
+	{{ form_start(form) }}
+	<div class="formAuthorFio">
+		{{ form_row(form.fam, {'attr': {'autocomplete': 'off'}}) }}
+	</div>
+	<div class="formAuthorFio">
+		{{ form_row(form.nam, {'attr': {'autocomplete': 'off'}}) }}
+	</div>
+	<div class="formAuthorFio">
+		{{ form_row(form.ots, {'attr': {'autocomplete': 'off'}}) }}
+	</div>
+	
+	<div class="hidden">
+		{{ form_rest(form) }}
+	</div>
+	
+	<hr>
+	
+	<button type="submit">Сохранить</button>
+	{{ form_end(form, {'render_rest': false}) }}
+{% endblock %}

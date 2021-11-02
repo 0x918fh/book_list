@@ -11,10 +11,33 @@
     </head>
     <body>
 		<div id="wrap">
-			<div id="head"><a href="{{ path('homepage') }}"><img src="{{ asset('tmpl/logo.png') }}" /></a></div>
-			<div id="content">
-				{% block body %}{% endblock %}
+			<div id="head">
+				<table border="0" width="100%">
+					<tr>
+						<td id="blockLogo">
+							<a href="{{ path('homepage') }}"><img src="{{ asset('tmpl/logo.png') }}" /></a>
+						</td>
+						<td id="blockTitle">
+							Библиотека
+						</td>
+					</tr>
+				</table>
 			</div>
+			<div id="content">
+				<div id="leftCol">
+					{% block left %}
+						<ul id="menu">
+							<li><a href="{{ path('homepage') }}">Главная страница</a></li>
+							<li><a href="{{ path('info') }}">Информация о задании</a></li>
+							<li><a href="{{ path('authors') }}">Авторы</a></li>
+						</ul>
+					{% endblock %}
+				</div>
+				<div id="mainCol">
+					{% block body %}{% endblock %}
+				</div>
+			</div>
+			<div class="clearfix"></div>
 		</div>
 
 		{% block javascripts %}

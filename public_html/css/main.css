@@ -18,8 +18,59 @@ body{
 
 #head{
 	padding: 15px;
+	box-shadow: 0 5px 3px -2px silver;
+	background-color: whitesmoke;
 }
 
 #content{
 	padding: 20px;
+}
+
+#blockLogo{
+	width: 120px;
+}
+
+#blockTitle{
+	font-family: serif;
+	text-align: center;
+	font-size: 5vw;
+	color: #2c3e50;
+	text-shadow: 1px 1px 2px gray;
+}
+
+#leftCol{
+	width: 200px;
+	float: left;
+}
+
+#menu{
+	list-style: none;
+	margin: 0;
+	padding: 0;
+}
+
+#mainCol{
+	padding-left: 240px;
+}
+
+.hidden{
+	display: none;
+}
+
+.table{
+	width: 100%;
+	border-collapse: collapse;
+}
+
+.table.tableHovered tr:hover{
+	background-color: silver;
+}
+
+.table td{
+	border: 1px solid gray;
+	padding: 3px 5px;
+}
+
+.clearfix{
+	clear: both;
 }
