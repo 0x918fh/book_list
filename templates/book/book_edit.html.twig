@@ -1,0 +1,82 @@
+{% extends "base.html.twig" %}
+
+{% block stylesheets %}
+	{{ parent() }}
+	<link href="{{ asset('css/book.css') }}" rel="stylesheet" />
+{% endblock %}
+
+{% block body %}
+	{{ form_start(form, {'attr': {'id': 'bookForm'}}) }}
+	<div class="bookCoverCol">
+		<label for="book_edit_cover"><img id="coverSelector" class="imgCoverEdit" src="{{ fileCover }}"></label>
+	</div>
+	
+	<div class="bookMainCol">
+		<div class="bookEditTitle">
+			{{ form_row(form.title, {'attr': {'autocomplete': 'off'}, 'label': 'Название книги'}) }}
+		</div>
+		
+		<div class="bookEditYear">
+			{{ form_row(form.year, {'attr': {'autocomplete': 'off'}, 'label': 'Год издания'}) }}
+		</div>
+		
+		<p>Авторы:</p>
+		<table class="table">
+			<tbody id="bookAuthors">
+				<tr>
+					<td colspan="2">
+						<button type="button" onclick="showAuthorSelect();">
+							Добавить автора
+						</button>
+					</td>
+				</tr>
+				{% for author in authors %}
+					<tr>
+						<td class="authorId hidden">{{ author.id }}</td>
+						<td class="authorFio">{{ author.fam }} {{ author.nam }} {{ author.ots }}</td>
+						<td><button type="button" onclick="removeAuthor(this)">удалить</button></td>
+					</tr>
+				{% endfor %}
+			</tbody>
+		</table>
+	</div>
+	
+	
+	<div class="clearfix"></div>
+	
+	<div class="formBookDesc">
+		{{ form_row(form.description, {'label': 'Описание книги'}) }}
+	</div>
+	
+	
+	
+	<div class="hidden1">
+		{{ form_rest(form) }}
+	</div>
+	
+	<hr>
+	
+	<button type="submit" onclick="saveBook()">Сохранить</button>
+	{{ form_end(form, {'render_rest': false}) }}
+	
+	<div id="modalWrap" class="hidden" onclick="hideModal(this);">
+		<div id="modalForm">
+			<h3>Выбор автора книги</h3>
+			<div id="letterSelect">
+				{% for letter in letterList %}
+					<a href="#" letter="{{ letter }}" onclick="authorLetterSelect(this); return false;">{{ letter }}</a>
+				{% endfor %}
+			</div>
+			<hr>
+			<table class="table">
+				<tbody id="authorList">
+				</tbody>
+			</table>
+		</div>
+	</div>
+{% endblock %}
+
+{% block javascripts %}
+	{{ parent() }}
+	<script src="{{ asset('js/book.js') }}"></script>
+{% endblock %}

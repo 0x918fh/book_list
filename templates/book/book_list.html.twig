@@ -1,0 +1,35 @@
+{% extends "base.html.twig" %}
+
+{% block body %}
+	<table class="table">
+		<tbody>
+			{% for book in books %}
+				<tr>
+					<td class="bookCellThumb">
+						{% if book.cover is null %}
+							<img class="bookThumb" src="/books/nocover.png">
+						{% else %}
+							<img class="bookThumb" src="/books/{{ book.id }}/{{ book.cover }}">
+						{% endif %}
+					</td>
+					<td>
+						<p><strong><big>
+							<a href="{{ path('book_edit', {id: book.id}) }}">{{ book.title }}</a>
+						</big></strong></p>
+						<p>Год издания: <i>{{ book.year }}</i></p>
+						<p>Автор: 
+							<i>
+							{% for author in book.authors %}
+								{{ author.fam }} {{ author.nam|first }}. {{ author.ots|first }}.;
+							{% endfor %}
+							</i>
+						</p>
+						<div>
+							{{ book.description }}
+						</div>
+					</td>
+				</tr>
+			{% endfor %}
+		</tbody>
+	</table>
+{% endblock %}

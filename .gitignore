@@ -18,3 +18,8 @@
 /phpunit.xml
 .phpunit.result.cache
 ###< phpunit/phpunit ###
+
+###> netbeans/apache ###
+/error.log
+/nbproject/
+###< netbeans/apache ###

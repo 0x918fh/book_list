@@ -1,12 +1,15 @@
-/* 
-    Created on : 31 окт. 2021 г., 23:28:09
-    Author     : ghost
-*/
-
 body{
 	font-family: sans-serif;
 	font-size: 12pt;
 	background: url(../tmpl/background.png);
+}
+
+input, textarea{
+	box-sizing: border-box;
+	width: 100%;
+	padding: 2px 5px;
+	border: 1px solid gray;
+	border-radius: 3px;
 }
 
 #wrap{
@@ -53,8 +56,35 @@ body{
 	padding-left: 240px;
 }
 
+#modalWrap{
+	position: fixed;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	left: 0;
+	top: 0;
+	width: 100%;
+	height: 100%;
+	background-color: rgba(52, 73, 94, 0.4);
+}
+
+#modalForm{
+	width: 45%;
+	padding: 20px 10px;
+	background-color: white;
+	border: 1px solid silver;
+	box-shadow: 1px 1px 3px gray;
+}
+
+#modalForm h3{
+	margin: 0;
+	margin-bottom: 10px;
+	padding: 0 10px 10px 10px;
+	border-bottom: 1px solid silver;
+}
+
 .hidden{
-	display: none;
+	display: none !important;
 }
 
 .table{
@@ -69,6 +99,20 @@ body{
 .table td{
 	border: 1px solid gray;
 	padding: 3px 5px;
+}
+
+.bookThumb{
+	padding: 2px;
+	border: 1px solid gray;
+	box-shadow: 1px 1px 3px gray;
+	width: 105px;
+	height: 147px;
+	object-fit: contain;
+}
+
+.bookCellThumb{
+	width: 120px;
+	text-align: center;
 }
 
 .clearfix{

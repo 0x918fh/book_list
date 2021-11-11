@@ -44,4 +44,19 @@ class AuthorController extends AbstractController{
 			'authors' => $authors,
 		]);
 	}
+	
+	/**
+	 * @Route("/author_list_letter", name="author_list_letter")
+	 */
+	public function authorByLetter(Request $request){
+		$letter = $request->request->get('letter');
+		
+		$authors = $this->getDoctrine()->getRepository(Author::class)->findByLetter($letter, true);
+		
+		return $this->json([
+			'letter' => $letter,
+			'count' => count($authors),
+			'authors' => $authors,
+		]);
+	}
 }

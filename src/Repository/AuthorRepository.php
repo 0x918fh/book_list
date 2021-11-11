@@ -18,6 +18,32 @@ class AuthorRepository extends ServiceEntityRepository
         parent::__construct($registry, Author::class);
     }
 	
+	public function findByLetter($letter, $array = false){
+		$authors = $this->createQueryBuilder('a')
+            ->andWhere('a.fam LIKE :val')
+            ->setParameter('val', $letter.'%')
+            //->orderBy(['fam' => 'ASC', 'nam' => 'ASC', 'ots' => 'ASC'])
+			->addOrderBy('a.fam', 'ASC')
+			->addOrderBy('a.nam', 'ASC')
+			->addOrderBy('a.ots', 'ASC')
+            ->getQuery()
+            ->getResult();
+		
+		if($array){
+			$res = [];
+			foreach($authors as $item){
+				$res[] = [
+					'id' => $item->getId(),
+					'fio' => $item->getFio(),
+				];
+			}
+			return $res;
+		}
+		else{
+			return $authors;
+		}
+	}
+	
 	public function findAll(){
 		return $this->findBy(array(), array('fam' => 'ASC', 'nam' => 'ASC', 'ots' => 'ASC'));
 	}
