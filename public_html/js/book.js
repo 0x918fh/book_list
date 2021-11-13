@@ -12,62 +12,7 @@ function showCover(obj){
 	}
 }
 
-function showAuthorSelect(letter = 'А'){
-	jQuery.ajax({
-		method: 'post',
-		url: '/author_list_letter',
-		dataType: 'json',
-		data: {
-			letter: letter,
-		},
-		success: function(data, textStatus, jqXHR){
-			jQuery('#authorList').html('');
-			if(data.count > 0){
-				jQuery('#authorList').append(jQuery('<tr>', {
-					append: jQuery('<td>', {
-						align: 'center',
-						html: '<strong><i>Авторы на букву "' + letter + '"</i></strong>',
-					}),
-				}));
-				data.authors.forEach(function(item){
-					jQuery('#authorList').append(jQuery('<tr>', {
-						append: jQuery('<td>', {
-							append: jQuery('<a>', {
-								href: '#',
-								html: item.fio,
-								author_id: item.id,
-								onclick: 'authorSelect(this); return false;',
-							}),
-						}),
-					}));
-				});
-			}
-			else{
-				jQuery('#authorList').append(jQuery('<tr>', {
-					append: jQuery('<td>', {
-						align: 'center',
-						html: '<strong><i>Нет авторов на букву "' + letter + '"</i></strong>',
-					}),
-				}));
-			}
-			
-			jQuery('#modalWrap').removeClass('hidden');
-		},
-		error: function(jqXHR, textStatus, errorThrow){
-		  alert('Не удалось получить список авторов');
-		}
-	});
-}
 
-function hideModal(obj){
-	if(event.target === obj){
-		jQuery('#modalWrap').addClass('hidden');
-	}
-}
-
-function authorLetterSelect(obj){
-	showAuthorSelect(obj.getAttribute('letter'));
-}
 
 function authorSelect(obj){
 	jQuery('#bookAuthors').append(jQuery('<tr>', {

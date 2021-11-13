@@ -10,6 +10,23 @@ use App\Form\BookEditType;
 
 class BookController extends AbstractController{
 	/**
+	 * @route("/inline_form/{id}", name="inline_form")
+	 */
+	public function inline_form($id = -1){
+		$book = $this->getDoctrine()->getRepository(Book::class)->find($id);
+		if(!$book){
+			return $this->json([
+				'status' => false,
+				'message' => 'Не найдена указанная книга, попробуйте обновить страницу',
+			]);
+		}
+		return $this->json([
+			'status' => true,
+			'html' => $this->render('/book/book_inline.html.twig', ['book' => $book])->getContent(),
+		]);
+	}
+	
+	/**
 	 * @route("/book_edit/{id}", name="book_edit")
 	 */
 	public function edit(Request $request, $id = -1){
@@ -63,14 +80,14 @@ class BookController extends AbstractController{
 			return $this->redirectToRoute('homepage');
 		}
 		
-		$letterList = ['А', 'Б', 'В', 'Г', 'Д', 'Е', 'Ё', 'Ж', 'З', 'И', 'Й', 
-			'К', 'Л', 'М', 'Н', 'О', 'П', 'Р', 'С', 'Т', 'У', 'Ф', 'Х', 'Ц', 'Ч', 
-			'Ш', 'Щ', 'Э', 'Ю', 'Я'];
+//		$letterList = ['А', 'Б', 'В', 'Г', 'Д', 'Е', 'Ё', 'Ж', 'З', 'И', 'Й', 
+//			'К', 'Л', 'М', 'Н', 'О', 'П', 'Р', 'С', 'Т', 'У', 'Ф', 'Х', 'Ц', 'Ч', 
+//			'Ш', 'Щ', 'Э', 'Ю', 'Я'];
 		
 		return $this->render('book/book_edit.html.twig', [
 			'form' => $form->createView(),
 			'fileCover' => $fileCover,
-			'letterList' => $letterList,
+//			'letterList' => $letterList,
 			'authors' => $book->getAuthors(),
 		]);
 	}
@@ -94,5 +111,52 @@ class BookController extends AbstractController{
 		$entityManager->flush();
 		
 		return $this->redirectToRoute('homepage');
+	}
+	
+	/**
+	 * @route("/book_inline_save", name="book_inline_test")
+	 */
+	public function inlineSave(Request $request){
+		$formBook = $request->request->get('book');
+		$book = $this->getDoctrine()->getRepository(Book::class)->find($formBook['id']);
+		
+		if(!$book){
+			return $this->json([
+				'status' => false,
+				'message' => 'Не найдена книга ['.$formBook['id'].']',
+			]);
+		}
+		
+		$changeAuthors = [];
+		
+		foreach($book->getAuthors() as $item){
+			$book->removeAuthor($item);
+			$changeAuthors[] = $item->getId();
+		}
+		$authors = json_decode($formBook['authors'], true);
+		if($authors === null){
+			$authors = [];
+		}
+		$authList = $this->getdoctrine()->getRepository(Author::class)->findBy(['id' => $authors]);
+		foreach($authList as $item){
+			$book->addAuthor($item);
+			$changeAuthors[] = $item->getId();
+		}
+		$changeAuthors = array_unique($changeAuthors);
+		
+		$book->setTitle($formBook['title']);
+		$book->setYear($formBook['year']);
+		$book->setDescription($formBook['description']);
+		$book->setAuthor($formBook['authors']);
+		
+		$entityManager = $this->getDoctrine()->getManager();
+		$entityManager->persist($book);
+		$entityManager->flush();
+		
+		return $this->json([
+			'status' => true,
+			'bookCard' => $this->render('/book/book_card.html.twig', ['book' => $book])->getContent(),
+			'authors' => $authors,
+		]);
 	}
 }

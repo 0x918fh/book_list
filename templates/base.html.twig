@@ -1,3 +1,7 @@
+{% set letterList = ['А', 'Б', 'В', 'Г', 'Д', 'Е', 'Ё', 'Ж', 'З', 'И', 'Й', 
+			'К', 'Л', 'М', 'Н', 'О', 'П', 'Р', 'С', 'Т', 'У', 'Ф', 'Х', 'Ц', 'Ч', 
+			'Ш', 'Щ', 'Э', 'Ю', 'Я'] %}
+
 <!DOCTYPE html>
 <html>
     <head>
@@ -33,6 +37,9 @@
 							<li><a href="{{ path('info') }}">Информация о задании</a></li>
 						</ul>
 					{% endblock %}
+					{% block filter %}
+						
+					{% endblock %}
 				</div>
 				<div id="mainCol">
 					{% block body %}{% endblock %}
@@ -40,9 +47,27 @@
 			</div>
 			<div class="clearfix"></div>
 		</div>
+				
+				
+		<div id="modalWrap" class="hidden" onclick="hideModal(this);">
+			<div id="modalForm">
+				<h3>Выбор автора книги</h3>
+				<div id="letterSelect">
+					{% for letter in letterList %}
+						<a href="#" letter="{{ letter }}" onclick="authorLetterSelect(this); return false;">{{ letter }}</a>
+					{% endfor %}
+				</div>
+				<hr>
+				<table class="table">
+					<tbody id="authorList">
+					</tbody>
+				</table>
+			</div>
+		</div>
 
 		{% block javascripts %}
             <script src="{{ asset('js/jquery.js') }}"></script>
+			<script src="{{ asset('js/main.js') }}"></script>
         {% endblock %}
     </body>
 </html>

@@ -59,21 +59,7 @@
 	<button type="submit" onclick="saveBook()">Сохранить</button>
 	{{ form_end(form, {'render_rest': false}) }}
 	
-	<div id="modalWrap" class="hidden" onclick="hideModal(this);">
-		<div id="modalForm">
-			<h3>Выбор автора книги</h3>
-			<div id="letterSelect">
-				{% for letter in letterList %}
-					<a href="#" letter="{{ letter }}" onclick="authorLetterSelect(this); return false;">{{ letter }}</a>
-				{% endfor %}
-			</div>
-			<hr>
-			<table class="table">
-				<tbody id="authorList">
-				</tbody>
-			</table>
-		</div>
-	</div>
+	
 {% endblock %}
 
 {% block javascripts %}

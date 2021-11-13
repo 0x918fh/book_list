@@ -83,6 +83,20 @@ input, textarea{
 	border-bottom: 1px solid silver;
 }
 
+#letterSelect{
+	text-align: center;
+}
+
+#letterSelect a{
+	display: inline-block;
+	width: 20px;
+	text-align: center;
+}
+
+#letterSelect a:hover{
+	background-color: silver;
+}
+
 .hidden{
 	display: none !important;
 }
@@ -113,6 +127,17 @@ input, textarea{
 .bookCellThumb{
 	width: 120px;
 	text-align: center;
+}
+
+.bookCellInfo{
+	position: relative;
+}
+
+.btnInlineEdit{
+	position: absolute;
+	right: 10px;
+	top: 10px;
+	
 }
 
 .clearfix{

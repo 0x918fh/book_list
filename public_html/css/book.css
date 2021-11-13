@@ -1,17 +1,3 @@
-#letterSelect{
-	text-align: center;
-}
-
-#letterSelect a{
-	display: inline-block;
-	width: 20px;
-	text-align: center;
-}
-
-#letterSelect a:hover{
-	background-color: silver;
-}
-
 .imgCoverEdit{
 	padding: 5px;
 	border: 1px solid silver;

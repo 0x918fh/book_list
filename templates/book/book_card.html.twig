@@ -1,0 +1,15 @@
+<button type="button" class="btnInlineEdit" onClick="inlineEdit(this, {{ book.id }});">изменить</button>
+<p><strong><big>
+	<a href="{{ path('book_edit', {id: book.id}) }}">{{ book.title }}</a>
+</big></strong></p>
+<p>Год издания: <i>{{ book.year }}</i></p>
+<p>Автор: 
+	<i>
+	{% for author in book.authors %}
+		 {{ author.fam }} {{ author.nam|first }}.{% if author.ots != '' %} {{ author.ots|first }}.{% endif %};
+	{% endfor %}
+	</i>
+</p>
+<div>
+	{{ book.description }}
+</div>

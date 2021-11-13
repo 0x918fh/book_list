@@ -1,82 +1,21 @@
-{% extends "base.html.twig" %}
+<input type="text" class="formInlineId" value="{{ book.id }}" />
+<input type="text" class="formInlineAuthorRaw" value="{{ book.author }}" />
+<input type="text" class="formInlineTitle" value="{{ book.title }}" />
+<input type="text" class="formInlineYear" value="{{ book.year }}" />
 
-{% block stylesheets %}
-	{{ parent() }}
-	<link href="{{ asset('css/book.css') }}" rel="stylesheet" />
-{% endblock %}
+<div class="inlineAuthorList">
+	<button type="btnAddAuthor" onclick="showAuthorSelect('А', {{ book.id }})">добавить</button>
+	{% for author in book.authors %}
+		<span class="formInlineAuthor" author="{{ author.id }}">
+			{{ author.fam }} {{ author.nam|first }}.{% if author.ots != '' %} {{ author.ots|first }}.{% endif %}
+			<button type="button" class="formInlineAuthorDel" onclick="inlineAuthorDelete(this)">x</button>
+		</span>
+	{% endfor %}
+</div>
 
-{% block body %}
-	{{ form_start(form, {'attr': {'id': 'bookForm'}}) }}
-	<div class="bookCoverCol">
-		<label for="book_edit_cover"><img id="coverSelector" class="imgCoverEdit" src="{{ fileCover }}"></label>
-	</div>
-	
-	<div class="bookMainCol">
-		<div class="bookEditTitle">
-			{{ form_row(form.title, {'attr': {'autocomplete': 'off'}, 'label': 'Название книги'}) }}
-		</div>
-		
-		<div class="bookEditYear">
-			{{ form_row(form.year, {'attr': {'autocomplete': 'off'}, 'label': 'Год издания'}) }}
-		</div>
-		
-		<p>Авторы:</p>
-		<table class="table">
-			<tbody id="bookAuthors">
-				<tr>
-					<td colspan="2">
-						<button type="button" onclick="showAuthorSelect();">
-							Добавить автора
-						</button>
-					</td>
-				</tr>
-				{% for author in authors %}
-					<tr>
-						<td class="authorId hidden">{{ author.id }}</td>
-						<td class="authorFio">{{ author.fam }} {{ author.nam }} {{ author.ots }}</td>
-						<td><button type="button" onclick="removeAuthor(this)">удалить</button></td>
-					</tr>
-				{% endfor %}
-			</tbody>
-		</table>
-	</div>
-	
-	
-	<div class="clearfix"></div>
-	
-	<div class="formBookDesc">
-		{{ form_row(form.description, {'label': 'Описание книги'}) }}
-	</div>
-	
-	
-	
-	<div class="hidden1">
-		{{ form_rest(form) }}
-	</div>
-	
-	<hr>
-	
-	<button type="submit" onclick="saveBook()">Сохранить</button>
-	{{ form_end(form, {'render_rest': false}) }}
-	
-	<div id="modalWrap" class="hidden" onclick="hideModal(this);">
-		<div id="modalForm">
-			<h3>Выбор автора книги</h3>
-			<div id="letterSelect">
-				{% for letter in letterList %}
-					<a href="#" letter="{{ letter }}" onclick="authorLetterSelect(this); return false;">{{ letter }}</a>
-				{% endfor %}
-			</div>
-			<hr>
-			<table class="table">
-				<tbody id="authorList">
-				</tbody>
-			</table>
-		</div>
-	</div>
-{% endblock %}
+<textarea class="formInlineDescription">{{ book.description }}</textarea>
 
-{% block javascripts %}
-	{{ parent() }}
-	<script src="{{ asset('js/book.js') }}"></script>
-{% endblock %}
+<hr>
+
+<button type="button" onclick="cancelInlineEdit(this)">Отменить</button>
+<button type="button" onclick="saveInlineBook(this)">Сохранить</button>
