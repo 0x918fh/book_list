@@ -15,6 +15,7 @@ function authorSelect(obj){
 	jQuery(cell).find('.inlineAuthorList').append(jQuery('<span>', {
 		class: 'formInlineAuthor',
 		author: obj.getAttribute('author_id'),
+		authorFio: jQuery(obj).text().trim(),
 		text: fio,
 		append: jQuery('<button>', {
 			type: 'button',
@@ -36,11 +37,14 @@ function saveInlineBook(obj){
 		description: cell.find('.formInlineDescription').val(),
 	};
 	var authors = [];
+	var authorsName = [];
 	cell.find('.formInlineAuthor').each(function(){
+		authorsName.push(this.getAttribute('authorFio'));
 		authors.push(+this.getAttribute('author'));
 	});
-	cell.find('.formInlineAuthorRaw').val(JSON.stringify(authors));
-	book.authors = cell.find('.formInlineAuthorRaw').val();
+	//cell.find('.formInlineAuthorRaw').val(authorsName.join('; '));
+	book.author = authorsName.join('; ');
+	book.authors = JSON.stringify(authors);
 	
 	
 	jQuery.ajax({

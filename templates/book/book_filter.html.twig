@@ -1,0 +1,18 @@
+<hr>
+<form action="#" method="post">
+	<p>
+		Название<br>
+		<input type="text" id="filterTitle" name="filter[title]" value="{% if filter != null %}{{ filter.title }}{% endif %}">
+	</p>
+	<p>
+		Год издания<br>
+		<input type="text" id="filterYear" name="filter[year]" value="{% if filter != null %}{{ filter.year }}{% endif %}">
+	</p>
+	<p>
+		Автор<br>
+		<input type="text" id="filterAuthor" name="filter[author]" value="{% if filter != null %}{{ filter.author }}{% endif %}">
+	</p>
+	<br>
+	<button type="submit">Применить</button>
+	<button type="reset">Очистить</button>
+</form>

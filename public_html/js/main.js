@@ -97,4 +97,3 @@ function hideModal(obj){
 function authorLetterSelect(obj){
 	showAuthorSelect(obj.getAttribute('letter'), jQuery('#modalWrap').attr('bookId'));
 }
-

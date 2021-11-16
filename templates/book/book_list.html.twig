@@ -24,22 +24,7 @@
 {% endblock %}
 
 {% block filter %}
-	<hr>
-	<p>
-		Название<br>
-		<input type="text" id="filterTitle">
-	</p>
-	<p>
-		Год издания<br>
-		<input type="text" id="filterYear">
-	</p>
-	<p>
-		Автор<br>
-		<input type="text" id="filterAuthor">
-	</p>
-	<br>
-	<button type="button">Применить</button>
-	<button type="button">Очистить</button>
+	{% include 'book/book_filter.html.twig' %}
 {% endblock %}
 
 {% block javascripts %}

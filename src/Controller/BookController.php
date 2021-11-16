@@ -35,7 +35,7 @@ class BookController extends AbstractController{
 		$fileCover = '/books/nocover.png';
 		if(!$book){
 			$book = new Book();
-			$book->setAuthor('[]');
+			$book->setAuthor('');
 		}
 		else{
 			$oldCover = $book->getCover();
@@ -59,13 +59,16 @@ class BookController extends AbstractController{
 				}
 			}
 			$authors = json_decode($book->getAuthor(), true);
+			$authorsFio = [];
 			if($authors === null){
 				$authors = [];
 			}
 			$authList = $this->getdoctrine()->getRepository(Author::class)->findBy(['id' => $authors]);
 			foreach($authList as $item){
 				$book->addAuthor($item);
+				$authorsFio[] = trim($item->getFam().' '.$item->getNam().' '.$item->getOts());
 			}
+			$book->setAuthor(implode('; ', $authorsFio));
 			$entityManager = $this->getDoctrine()->getManager();
 			$entityManager->persist($book);
 			$entityManager->flush();
@@ -147,7 +150,7 @@ class BookController extends AbstractController{
 		$book->setTitle($formBook['title']);
 		$book->setYear($formBook['year']);
 		$book->setDescription($formBook['description']);
-		$book->setAuthor($formBook['authors']);
+		$book->setAuthor($formBook['author']);
 		
 		$entityManager = $this->getDoctrine()->getManager();
 		$entityManager->persist($book);

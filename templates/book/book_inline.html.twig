@@ -6,7 +6,7 @@
 <div class="inlineAuthorList">
 	<button type="btnAddAuthor" onclick="showAuthorSelect('А', {{ book.id }})">добавить</button>
 	{% for author in book.authors %}
-		<span class="formInlineAuthor" author="{{ author.id }}">
+		<span class="formInlineAuthor" author="{{ author.id }}" authorFio="{{ author.fam }} {{ author.nam }}{% if author.ots != '' %} {{ author.ots }}{% endif %}">
 			{{ author.fam }} {{ author.nam|first }}.{% if author.ots != '' %} {{ author.ots|first }}.{% endif %}
 			<button type="button" class="formInlineAuthorDel" onclick="inlineAuthorDelete(this)">x</button>
 		</span>
