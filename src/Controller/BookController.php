@@ -53,9 +53,11 @@ class BookController extends AbstractController{
 				$coverName = 'cover.'.$cover->guessExtension();
 				$book->setCover($coverName);
 			}
+			$changeAuthors = [];
 			if($id > 0){
 				foreach($book->getAuthors() as $item){
 					$book->removeAuthor($item);
+					$changeAuthors[] = $item->getId();
 				}
 			}
 			$authors = json_decode($book->getAuthor(), true);
@@ -66,12 +68,15 @@ class BookController extends AbstractController{
 			$authList = $this->getdoctrine()->getRepository(Author::class)->findBy(['id' => $authors]);
 			foreach($authList as $item){
 				$book->addAuthor($item);
+				$changeAuthors[] = $item->getId();
 				$authorsFio[] = trim($item->getFam().' '.$item->getNam().' '.$item->getOts());
 			}
 			$book->setAuthor(implode('; ', $authorsFio));
 			$entityManager = $this->getDoctrine()->getManager();
 			$entityManager->persist($book);
 			$entityManager->flush();
+			
+			$this->getDoctrine()->getRepository(Author::class)->countUpdate($changeAuthors);
 			
 			if($cover){
 				if($oldCover !== null){
@@ -156,10 +161,23 @@ class BookController extends AbstractController{
 		$entityManager->persist($book);
 		$entityManager->flush();
 		
+		$this->getDoctrine()->getRepository(Author::class)->countUpdate($changeAuthors);
+		
 		return $this->json([
 			'status' => true,
 			'bookCard' => $this->render('/book/book_card.html.twig', ['book' => $book])->getContent(),
 			'authors' => $authors,
+		]);
+	}
+	
+	/**
+	 * @route("/update-test", name="update_test")
+	 */
+	public function updateTest(){
+		$count = $this->getDoctrine()->getRepository(Author::class)->countUpdate([1, 3, 5]);
+		
+		return $this->json([
+			'count' => $count,
 		]);
 	}
 }
