@@ -1,7 +1,7 @@
 {% extends "base.html.twig" %}
 
 {% block body %}
-	<table class="table">
+	<table class="table table-condensed table-bordered">
 		<tbody>
 			{% for book in books %}
 				<tr>
@@ -15,7 +15,7 @@
 					<td class="bookCellInfo">
 						{% include 'book/book_card.html.twig' %}
 					</td>
-					<td class="bookCellEdit hidden" bookId="{{ book.id }}">
+					<td class="bookCellEdit hidden danger" bookId="{{ book.id }}">
 					</td>
 				</tr>
 			{% endfor %}

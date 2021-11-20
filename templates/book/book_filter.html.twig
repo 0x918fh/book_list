@@ -1,18 +1,20 @@
 <hr>
 <form action="#" method="post">
 	<p>
-		Название<br>
-		<input type="text" id="filterTitle" name="filter[title]" value="{% if filter != null %}{{ filter.title }}{% endif %}">
+		<label for="filterTitle">Название</label>
+		<input type="text" id="filterTitle" class="form-control input-sm" name="filter[title]" value="{% if filter != null %}{{ filter.title }}{% endif %}">
 	</p>
 	<p>
-		Год издания<br>
-		<input type="text" id="filterYear" name="filter[year]" value="{% if filter != null %}{{ filter.year }}{% endif %}">
+		<label for="filterYear">Год издания</label>
+		<input type="number" id="filterYear" class="form-control input-sm" name="filter[year]" value="{% if filter != null %}{{ filter.year }}{% endif %}">
 	</p>
 	<p>
-		Автор<br>
-		<input type="text" id="filterAuthor" name="filter[author]" value="{% if filter != null %}{{ filter.author }}{% endif %}">
+		<label for="filterAuthor">Автор</label>
+		<input type="text" id="filterAuthor" class="form-control input-sm" name="filter[author]" value="{% if filter != null %}{{ filter.author }}{% endif %}">
 	</p>
 	<br>
-	<button type="submit">Применить</button>
-	<button type="reset">Очистить</button>
+	<div class="text-center">
+		<button type="submit" class="btn btn-success btn-sm">Применить</button>
+		<button type="reset" class="btn btn-warning btn-sm">Очистить</button>
+	</div>
 </form>

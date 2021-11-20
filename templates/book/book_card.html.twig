@@ -1,4 +1,4 @@
-<button type="button" class="btnInlineEdit" onClick="inlineEdit(this, {{ book.id }});">изменить</button>
+<button type="button" class="btn btn-warning btn-xs pull-right" onClick="inlineEdit(this, {{ book.id }});">изменить</button>
 <p><strong><big>
 	<a href="{{ path('book_edit', {id: book.id}) }}">{{ book.title }}</a>
 </big></strong></p>

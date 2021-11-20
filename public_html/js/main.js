@@ -77,10 +77,10 @@ function showAuthorSelect(letter = 'А', bookId = -1){
 				}));
 			}
 			if(bookId > 0){
-				jQuery('#modalWrap').attr('bookId', bookId);
+				jQuery('#modalAuthor').attr('bookId', bookId);
 			}
 			
-			jQuery('#modalWrap').removeClass('hidden');
+			jQuery('#modalAuthor').modal('show');
 		},
 		error: function(jqXHR, textStatus, errorThrow){
 		  alert('Не удалось получить список авторов');

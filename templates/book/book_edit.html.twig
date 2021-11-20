@@ -1,62 +1,58 @@
 {% extends "base.html.twig" %}
 
-{% block stylesheets %}
-	{{ parent() }}
-	<link href="{{ asset('css/book.css') }}" rel="stylesheet" />
-{% endblock %}
-
 {% block body %}
 	{{ form_start(form, {'attr': {'id': 'bookForm'}}) }}
-	<div class="bookCoverCol">
-		<label for="book_edit_cover"><img id="coverSelector" class="imgCoverEdit" src="{{ fileCover }}"></label>
-	</div>
-	
-	<div class="bookMainCol">
-		<div class="bookEditTitle">
-			{{ form_row(form.title, {'attr': {'autocomplete': 'off'}, 'label': 'Название книги'}) }}
+	<div class="row">
+		<div class="col-sm-3">
+			{{ form_row(form.cover, {'attr': {'class': 'hidden'}}) }}
+			<label for="book_edit_cover"><img id="coverSelector" class="imgCoverEdit" src="{{ fileCover }}"></label>
 		</div>
-		
-		<div class="bookEditYear">
-			{{ form_row(form.year, {'attr': {'autocomplete': 'off'}, 'label': 'Год издания'}) }}
-		</div>
-		
-		<p>Авторы:</p>
-		<table class="table">
-			<tbody id="bookAuthors">
-				<tr>
-					<td colspan="2">
-						<button type="button" onclick="showAuthorSelect();">
+		<div class="col-sm-9">
+			<div class="row">
+				<div class="col-sm-9">
+					{{ form_row(form.title, {'attr': {'autocomplete': 'off', 'class': 'form-control input-sm'}, 'label': 'Название книги'}) }}
+				</div>
+				<div class="col-sm-3">
+					{{ form_row(form.year, {'attr': {'autocomplete': 'off', 'class': 'form-control input-sm'}, 'label': 'Год издания'}) }}
+				</div>
+			</div>
+				<br>
+			<div class="row">
+				<div class="col-sm-12">
+					<p>
+						<button type="button" class="btn btn-primary btn-sm" onclick="showAuthorSelect();">
 							Добавить автора
 						</button>
-					</td>
-				</tr>
-				{% for author in authors %}
-					<tr>
-						<td class="authorId hidden">{{ author.id }}</td>
-						<td class="authorFio">{{ author.fam }} {{ author.nam }} {{ author.ots }}</td>
-						<td><button type="button" onclick="removeAuthor(this)">удалить</button></td>
-					</tr>
-				{% endfor %}
-			</tbody>
-		</table>
+					</p>
+					<table class="table table-hover">
+						<tbody id="bookAuthors">
+							{% for author in authors %}
+								<tr>
+									<td class="authorId hidden">{{ author.id }}</td>
+									<td class="authorFio">{{ author.fam }} {{ author.nam }} {{ author.ots }}</td>
+									<td><button type="button" class="btn btn-danger btn-sm" onclick="removeAuthor(this)">убрать</button></td>
+								</tr>
+							{% endfor %}
+						</tbody>
+					</table>
+				</div>
+			</div>
+		</div>
 	</div>
 	
-	
-	<div class="clearfix"></div>
-	
-	<div class="formBookDesc">
-		{{ form_row(form.description, {'label': 'Описание книги'}) }}
-	</div>
+	<p>
+		{{ form_row(form.description, {'label': 'Описание книги', 'attr': {'class': 'form-control'}}) }}
+	</p>
 	
 	
 	
-	<div class="hidden1">
+	<div class="hidden">
 		{{ form_rest(form) }}
 	</div>
 	
 	<hr>
 	
-	<button type="submit" onclick="saveBook()">Сохранить</button>
+	<button type="submit" class="btn btn-success btn-sm" onclick="saveBook()">Сохранить</button>
 	{{ form_end(form, {'render_rest': false}) }}
 	
 	

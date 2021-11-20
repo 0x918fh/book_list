@@ -1,5 +1,5 @@
 function authorSelect(obj){
-	var bookId = jQuery('#modalWrap').attr('bookId');
+	var bookId = jQuery('#modalAuthor').attr('bookId');
 	
 	var cell = jQuery('.bookCellEdit[bookId="' + bookId + '"]');
 	
@@ -19,13 +19,13 @@ function authorSelect(obj){
 		text: fio,
 		append: jQuery('<button>', {
 			type: 'button',
-			class: 'formInlineAuthorDel',
+			class: 'formInlineAuthorDel btn btn-danger btn-xs',
 			onclick: 'inlineAuthorDelete(this)',
 			text: 'x',
 		}),
 	}));
 	
-	hideModal(obj);
+	jQuery('#modalAuthor').modal('hide');
 }
 
 function saveInlineBook(obj){

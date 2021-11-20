@@ -25,13 +25,14 @@ function authorSelect(obj){
 		})).add(jQuery('<td>', {
 			append: jQuery('<button>', {
 				type: 'button',
+				class: 'btn btn-danger btn-sm',
 				onclick: 'removeAuthor(this)',
-				text: 'удалить',
+				text: 'убрать',
 			}),
 		})),
 	}));
 	
-	hideModal(obj);
+	jQuery('#modalAuthor').modal('hide');
 }
 
 function removeAuthor(obj){

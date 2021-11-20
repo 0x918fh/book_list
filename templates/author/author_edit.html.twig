@@ -1,20 +1,17 @@
 {% extends "base.html.twig" %}
 
-{% block stylesheets %}
-	{{ parent() }}
-	<link href="{{ asset('css/author.css') }}" rel="stylesheet" />
-{% endblock %}
-
 {% block body %}
 	{{ form_start(form) }}
-	<div class="formAuthorFio">
-		{{ form_row(form.fam, {'attr': {'autocomplete': 'off'}}) }}
-	</div>
-	<div class="formAuthorFio">
-		{{ form_row(form.nam, {'attr': {'autocomplete': 'off'}}) }}
-	</div>
-	<div class="formAuthorFio">
-		{{ form_row(form.ots, {'attr': {'autocomplete': 'off'}}) }}
+	<div class="row">
+		<div class="col-sm-4">
+			{{ form_row(form.fam, {'attr': {'class': 'form-control input-sm', 'autocomplete': 'off'}, 'label': 'Фамилия'}) }}
+		</div>
+		<div class="col-sm-4">
+			{{ form_row(form.nam, {'attr': {'class': 'form-control input-sm', 'autocomplete': 'off'}, 'label': 'Имя'}) }}
+		</div>
+		<div class="col-sm-4">
+			{{ form_row(form.ots, {'attr': {'class': 'form-control input-sm', 'autocomplete': 'off'}, 'label': 'Отчество'}) }}
+		</div>
 	</div>
 	
 	<div class="hidden">
@@ -23,6 +20,6 @@
 	
 	<hr>
 	
-	<button type="submit">Сохранить</button>
+	<button type="submit" class="btn btn-success">Сохранить</button>
 	{{ form_end(form, {'render_rest': false}) }}
 {% endblock %}

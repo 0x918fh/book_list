@@ -1,21 +1,30 @@
-<input type="text" class="formInlineId" value="{{ book.id }}" />
-<input type="text" class="formInlineAuthorRaw" value="{{ book.author }}" />
-<input type="text" class="formInlineTitle" value="{{ book.title }}" />
-<input type="text" class="formInlineYear" value="{{ book.year }}" />
+<div class="row inlineBlock">
+	<div class="col-sm-10">
+		<input type="text" class="formInlineTitle form-control input-sm" value="{{ book.title }}" />
+	</div>
+	<div class="col-sm-2">
+		<input type="number" class="formInlineYear form-control input-sm" value="{{ book.year }}" />
+	</div>
+</div>
 
-<div class="inlineAuthorList">
-	<button type="btnAddAuthor" onclick="showAuthorSelect('А', {{ book.id }})">добавить</button>
+
+
+<div class="inlineAuthorList inlineBlock">
+	<button type="button" class="btnAddAuthor btn btn-primary btn-sm" onclick="showAuthorSelect('А', {{ book.id }})">добавить</button>
 	{% for author in book.authors %}
 		<span class="formInlineAuthor" author="{{ author.id }}" authorFio="{{ author.fam }} {{ author.nam }}{% if author.ots != '' %} {{ author.ots }}{% endif %}">
 			{{ author.fam }} {{ author.nam|first }}.{% if author.ots != '' %} {{ author.ots|first }}.{% endif %}
-			<button type="button" class="formInlineAuthorDel" onclick="inlineAuthorDelete(this)">x</button>
+			<button type="button" class="formInlineAuthorDel btn btn-danger btn-xs" onclick="inlineAuthorDelete(this)">x</button>
 		</span>
 	{% endfor %}
 </div>
 
-<textarea class="formInlineDescription">{{ book.description }}</textarea>
+<textarea class="formInlineDescription form-control">{{ book.description }}</textarea>
+
+<input type="hidden" class="formInlineId" value="{{ book.id }}" />
+<input type="hidden" class="formInlineAuthorRaw" value="{{ book.author }}" />
 
 <hr>
 
-<button type="button" onclick="cancelInlineEdit(this)">Отменить</button>
-<button type="button" onclick="saveInlineBook(this)">Сохранить</button>
+<button type="button" class="btn btn-danger btn-sm" onclick="cancelInlineEdit(this)">Отменить</button>
+<button type="button" class="bnt btn-success btn-sm" onclick="saveInlineBook(this)">Сохранить</button>
