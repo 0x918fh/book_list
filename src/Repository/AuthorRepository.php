@@ -18,6 +18,15 @@ class AuthorRepository extends ServiceEntityRepository
         parent::__construct($registry, Author::class);
     }
 	
+	public function getCount(){
+		$count = $this->createQueryBuilder('a')
+				->select('count(a.id)')
+				->getQuery()
+				->getSingleScalarResult();
+		
+		return $count;
+	}
+	
 	public function countUpdate($ids = []){
 		$authors = $this->findBy(['id' => $ids]);
 		$test = [];
